@@ -26,14 +26,20 @@ global class ChatterUtils {
         return [select id from EntitySubscription where parentId in :objectIdsToDeleteFollowers];
     }
     
-    global static EntitySubscription[] addFollower(Id userId, Id objectIdToFollow) {
+    global static EntitySubscription[] addFollower(Id userOrGroupId, Id objectIdToFollow) {
+        return addFollower(userOrGroupId,objectIdToFollow,true);
+    }
+    
+    global static EntitySubscription[] addFollower(Id userOrGroupId, Id objectIdToFollow, boolean groupMembersFollow) {
         EntitySubscription[] es = new List<EntitySubscription>();
-        if (GroupUtils.isGroup(userId)) {
-            for (User user : GroupUtils.getUsers(userId)) {
-                es.add(new EntitySubscription(parentId=objectIdToFollow,subscriberId=user.id));
+        if (GroupUtils.isGroup(userOrGroupId)) {
+            if (groupMembersFollow) {
+                for (User user : GroupUtils.getUsers(userOrGroupId)) {
+                    es.add(new EntitySubscription(parentId=objectIdToFollow,subscriberId=user.id));
+                }   
             }
         } else {
-            es.add(new EntitySubscription(parentId=objectIdToFollow,subscriberId=userId));
+            es.add(new EntitySubscription(parentId=objectIdToFollow,subscriberId=userOrGroupId));
         }
         return es;
     }
@@ -125,8 +131,8 @@ global class ChatterUtils {
     /**
     This is useless if you use Chatter Desktop or Chatter Mobile as the URLs are relative.
     */
-    global static FeedPost addRelatedPost(String title, String body, Id parentId, Id relatedObjectId) {
-        FeedPost issuePost = new FeedPost();
+    global static FeedItem addRelatedPost(String title, String body, Id parentId, Id relatedObjectId) {
+        FeedItem issuePost = new FeedItem();
         issuePost.Type = 'LinkPost';
         issuePost.ParentId = parentId;
         issuePost.Title = title;
@@ -135,8 +141,8 @@ global class ChatterUtils {
         return issuePost;
     }
     
-    global static FeedPost addRelatedPost(String title, String body, Id parentId, Id relatedObjectId, String absoluteUrl) {
-        FeedPost issuePost = new FeedPost();
+    global static FeedItem addRelatedPost(String title, String body, Id parentId, Id relatedObjectId, String absoluteUrl) {
+        FeedItem issuePost = new FeedItem();
         issuePost.Type = 'LinkPost';
         issuePost.ParentId = parentId;
         issuePost.Title = title;
