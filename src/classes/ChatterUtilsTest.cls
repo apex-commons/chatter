@@ -211,7 +211,7 @@ private class ChatterUtilsTest {
     }
     
     static testMethod void test_addRelatedPost() {
-        //Test: global static FeedPost addRelatedPost(String title, String body, Id parentId, Id relatedObjectId)
+        //Test: global static FeedItem addRelatedPost(String title, String body, Id parentId, Id relatedObjectId)
         Account acct1 = new Account(name='acct1');
         insert acct1;
         Account acct2 = new Account(name='acct2');
@@ -220,7 +220,7 @@ private class ChatterUtilsTest {
     }
     
     static testMethod void test_addRelatedPost_absolute() {
-        //Test: global static FeedPost addRelatedPost(String title, String body, Id parentId, Id relatedObjectId, String absoluteUrl)
+        //Test: global static FeedItem addRelatedPost(String title, String body, Id parentId, Id relatedObjectId, String absoluteUrl)
         Account acct1 = new Account(name='acct1');
         insert acct1;
         Account acct2 = new Account(name='acct2');
