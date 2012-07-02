@@ -1,7 +1,7 @@
 @isTest
 private class ChatterUtilsTest {
     static testMethod void test_deleteFollowers_Id() {
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         
         Account acct1 = new Account(name='acct1');
         insert acct1;
@@ -17,7 +17,7 @@ private class ChatterUtilsTest {
     }
     
     static testMethod void test_deleteFollowers_Set() {
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         
         Account acct1 = new Account(name='acct1');
         insert acct1;
@@ -36,7 +36,7 @@ private class ChatterUtilsTest {
     }
     
     static testMethod void test_deleteFollowers_ListSObject() {
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         Account acct1 = new Account(name='acct1');
         insert acct1;
         Account acct2 = new Account(name='acct2');
@@ -55,7 +55,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_addFollowers_Id_User() {
         //Test: global static void addFollower(Id userId, Id objectIdToFollow)
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         Account acct1 = new Account(name='acct1');
         insert acct1;
         ChatterUtils.addFollower(users[0].id,acct1.id);
@@ -72,7 +72,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_addFollower_User() {
         //Test: global static EntitySubscription addFollower(User user, SObject objectToFollow)
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         Account acct1 = new Account(name='acct1');
         insert acct1;
         ChatterUtils.addFollower(users[0],acct1);
@@ -89,7 +89,7 @@ private class ChatterUtilsTest {
         }
         
         try {
-            User[] users = [select id from User where isactive = true];
+            User[] users = [select id from User where isactive = true and usertype = 'standard'];
             ChatterUtils.addFollower(users[0],null);
         } catch (IllegalArgumentException e) {
             
@@ -98,7 +98,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_addFollowers_Id_Array() {
         //Test: global static EntitySubscription[] addFollowers(Id[] userIds, Id objectIdToFollow)
-        User[] users = [select id from User where isactive = true limit 2];
+        User[] users = [select id from User where isactive = true and usertype = 'standard' limit 2];
         Account acct1 = new Account(name='acct1');
         insert acct1;
         ChatterUtils.addFollowers(users,acct1);
@@ -116,7 +116,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_copyFollowers_Id_WithFollowers() {
         //Test: global static void copyFollowers(Id objectIdToCopyFrom, Id objectIdToFollow)
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         
         Account acct1 = new Account(name='acct1');
         insert acct1;
@@ -133,7 +133,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_copyFollowers_Id_NoFollowers() {
         //Test: global static void copyFollowers(Id objectIdToCopyFrom, Id objectIdToFollow)
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         
         Account acct1 = new Account(name='acct1');
         insert acct1;
@@ -144,7 +144,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_copyFollowers_SObject() {
         //Test: global static EntitySubscription[] copyFollowers(SObject objectToCopyFrom, SObject objectToFollow)
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         
         Account acct1 = new Account(name='acct1');
         insert acct1;
@@ -161,7 +161,7 @@ private class ChatterUtilsTest {
     
     static testMethod void test_copyFollowers_SObject_Array() {
         //Test: global static EntitySubscription[] copyFollowers(SObject objectToCopyFrom, SObject[] objectsToFollow)
-        User[] users = [select id from User where isactive = true];
+        User[] users = [select id from User where isactive = true and usertype = 'standard'];
         
         Account acct1 = new Account(name='acct1');
         insert acct1;
